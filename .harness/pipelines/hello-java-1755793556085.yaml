@@ -34,14 +34,17 @@ pipeline:
                   name: Polaris Scan
                   identifier: Polaris_Scan
                   spec:
+                    connectorRef: account.harnessImage
+                    image: maven:3-eclipse-temurin-21
                     shell: Sh
                     command: |-
                       env | sort
+                      apt-get -q update && apt-get -q install -y curl file unzip
                       curl -fLsS -o bridge.zip $BRIDGECLI_LINUX64 && unzip -qo -d /tmp bridge.zip && rm -f bridge.zip
-                      /tmp/bridge-cli-bundle-linux64/bridge-cli -verbose --stage polaris \
-                          polaris.application.name=$(basename $PWD) \
-                          polaris.project.name=$(basename $PWD) \
-                          polaris.branch.name=$(git branch --show-current) \
+                      /tmp/bridge-cli-bundle-linux64/bridge-cli --verbose --stage polaris \
+                          polaris.application.name=chuckaude-$DRONE_REPO_NAME \
+                          polaris.project.name=$DRONE_REPO_NAME \
+                          polaris.branch.name=$DRONE_REPO_BRANCH \
                           polaris.assessment.types=SAST,SCA
           platform:
             os: Linux
