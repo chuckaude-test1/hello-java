@@ -21,9 +21,10 @@ pipeline:
             steps:
               - step:
                   identifier: echo
-                  name: echo
+                  name: Maven Build
                   spec:
-                    command: echo hello world
+                    shell: Sh
+                    command: mvn -B -DskipTests package
                   timeout: ""
                   type: Run
           platform:
