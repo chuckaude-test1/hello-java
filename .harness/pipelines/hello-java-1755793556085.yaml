@@ -38,10 +38,9 @@ pipeline:
                     image: maven:3-eclipse-temurin-21
                     shell: Sh
                     command: |-
-                      env | sort
-                      apt-get -q update && apt-get -q install -y curl file unzip
+                      apt-get -qq update && apt-get -qq install curl file unzip
                       curl -fLsS -o bridge.zip $BRIDGECLI_LINUX64 && unzip -qo -d /tmp bridge.zip && rm -f bridge.zip
-                      /tmp/bridge-cli-bundle-linux64/bridge-cli --verbose --stage polaris \
+                      /tmp/bridge-cli-bundle-linux64/bridge-cli --stage polaris \
                           polaris.application.name=chuckaude-$DRONE_REPO_NAME \
                           polaris.project.name=$DRONE_REPO_NAME \
                           polaris.branch.name=$DRONE_REPO_BRANCH \
@@ -53,19 +52,20 @@ pipeline:
             type: Cloud
             spec: {}
         type: CI
+        description: ""
   variables:
     - name: BRIDGE_POLARIS_SERVERURL
       type: String
       description: ""
-      required: false
+      required: true
       value: https://poc.polaris.blackduck.com
     - name: BRIDGE_POLARIS_ACCESSTOKEN
       type: Secret
       description: ""
-      required: false
+      required: true
       value: polaris-poc-aude-setest
     - name: BRIDGECLI_LINUX64
       type: String
       description: ""
-      required: false
+      required: true
       value: https://repo.blackduck.com/artifactory/bds-integrations-release/com/blackduck/integration/bridge/binaries/bridge-cli-bundle/latest/bridge-cli-bundle-linux64.zip
