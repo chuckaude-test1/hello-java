@@ -23,14 +23,16 @@ pipeline:
                   identifier: echo
                   name: Maven Build
                   spec:
+                    connectorRef: account.harnessImage
+                    image: maven:3-eclipse-temurin-21
                     shell: Sh
                     command: mvn -B -DskipTests package
                   timeout: ""
                   type: Run
           platform:
-            arch: Amd64
             os: Linux
+            arch: Amd64
           runtime:
-            spec: {}
             type: Cloud
+            spec: {}
         type: CI
