@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_chuckaude_test1_hello_java_1755793579203-pr-trigger-input-set
+  identifier: Build_chuckaude_test1_hello_java_1755793579203prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_chuckaude_test1_hello_java_1755793579203
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
